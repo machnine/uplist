@@ -1,14 +1,14 @@
-from UPList import PlayList
+from uplist import PlayList
 
 def Main():
     while(True):
         url = input('Enter the Youtube playlist URL: ')
         if len(url) == 0 or url =='quit':
             break
-        p = PlayList(url)
+        pl = PlayList(url)
         print('-' * 45)
-        for i, x in enumerate(p.urls):
-            print(i+1, x)
+        for i, x in enumerate(pl.videos):
+            print('URL: %s - %s.%s'%(x.url, i+1, x.title))
         print('-' * 45)
 
 
