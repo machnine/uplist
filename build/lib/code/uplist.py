@@ -2,10 +2,10 @@ from bs4 import BeautifulSoup
 from collections import namedtuple
 import requests
 
-"""this class extracts the url and index of a given youtube playlist"""
+"""This class extracts the urls and titles of a given youtube playlist"""
 
 class PlayList:
-
+	# name tuple to store outputs
     Video = namedtuple('Video', ['url', 'title'])
     
     def __init__(self, listurl):
@@ -27,16 +27,19 @@ class PlayList:
 
 
     @property
-    def videos(self):
+    def playlist(self):
+		# return the playlist as a list of named tuples
         return [PlayList.Video._make([self.__getVideoURL(x[0])] + [x[1]])
                 for x in self.__rawList]
         
     def __getVideoURL(self, text):
+		# helper function split extract url and add prefix
         url = text.split('&')[0]   
         url = 'https://www.youtube.com' + url
         return url
     
     def __makeUrl(self, text):
+		# url validation and clean up
         if text.find('playlist?list') != -1:
             return text
         elif text.find('watch?v=') * text.find('list=') > 1:
@@ -46,6 +49,7 @@ class PlayList:
 
 
     def __getListUrlfromVideoLink(self, text):
+		# helper function as its name implies
         return r'''https://www.youtube.com/playlist?''' + \
                [x for x in text.split('&')
                 if x.startswith('list=')][0]

@@ -7,7 +7,7 @@ def Main():
             break
         pl = PlayList(url)
         print('-' * 45)
-        for i, x in enumerate(pl.videos):
+        for i, x in enumerate(pl.playlist):
             print('URL: %s - %s.%s'%(x.url, i+1, x.title))
         print('-' * 45)
 
